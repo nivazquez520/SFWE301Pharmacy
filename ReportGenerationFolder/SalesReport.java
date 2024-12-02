@@ -1,4 +1,4 @@
-//package ReportGenerationFolder;
+package ReportGenerationFolder;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class SalesReport {
     Scanner scanner = new Scanner(System.in);
+
+
 
     public void generateReport() throws IOException {
         FileOutputStream fileStream = null;
