@@ -1,6 +1,5 @@
 package TransactionLoggingFolder;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionLog {
     public ArrayList<Transaction> transactions;
@@ -28,7 +27,7 @@ public class TransactionLog {
     }
 
     // Method to retrieve the list of transactions
-    public List<Transaction> getTransactions() {
+    public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 }
