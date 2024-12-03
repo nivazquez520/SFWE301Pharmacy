@@ -27,9 +27,9 @@ public class InventoryReport {
         // Arriving here implies that the file can now be written
         // to, otherwise an exception would have been thrown.
         outFS.println("Date of Report: " + currentDateTime + "\n");
-        outFS.println("---------------------- Inventory Report ----------------------\n");
+        outFS.println("----------------------------------- INVENTORY REPORT -----------------------------------\n");
         outFS.println(inventory.displayInfo());
-        outFS.println("--------------------------------------------------------------");
+        outFS.println("----------------------------------------------------------------------------------------");
 
         
         // Done with file, so try to close
