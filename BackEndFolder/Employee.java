@@ -1,3 +1,4 @@
+package BackEndFolder;
 public class Employee extends Account { //sub class of account
     private int authLevel;
     public Employee() {

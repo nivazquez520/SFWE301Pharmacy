@@ -1,3 +1,4 @@
+package BackEndFolder;
 public class Account { //Super class for all accounts including customer, employee
     private String userName;
     private String ID;
