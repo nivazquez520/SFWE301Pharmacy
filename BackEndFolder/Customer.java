@@ -9,13 +9,14 @@ public class Customer extends Account { //sub class of account
     public Customer() {
         this.LoyaltyProgram = false;
         this.Cart = new ShoppingCart();
-        RefillNoti = false;
-        autoOrder = false;
-        LoyaltyPoints = 0;
-        CardNumber = "";
+        this.RefillNoti = false;
+        this.autoOrder = false;
+        this.LoyaltyPoints = 0;
+        this.CardNumber = "";
     }
     public Customer(boolean LProg, boolean RNoti, boolean AOrder, int LoyaltyPoints, String CardNumber) {
         this.LoyaltyProgram = LProg;
+        this.Cart = new ShoppingCart();
         this.RefillNoti = RNoti;
         this.autoOrder = AOrder;
         this.LoyaltyPoints = LoyaltyPoints;
@@ -56,8 +57,8 @@ public class Customer extends Account { //sub class of account
     public String getCardNumber() {
         return CardNumber;
     }
-    public void addItem(String name, double price, int quant) {
-        Cart.addItem(name, price, quant);
+    public void addItem(int productID, String name, double price, int quant) {
+        Cart.addItem(productID, name, price, quant);
     }
     public boolean removeItem(String name) {
         return Cart.removeItem(name);

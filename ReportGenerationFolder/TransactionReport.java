@@ -1,12 +1,15 @@
 package ReportGenerationFolder;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 public class TransactionReport {
     Scanner scanner = new Scanner(System.in);
 
     public void generateReport() throws IOException {
-        FileOutputStream fileStream = null;
+        FileOutputStream fileStream;
         PrintWriter outFS = null;
 
         // Try to open file
