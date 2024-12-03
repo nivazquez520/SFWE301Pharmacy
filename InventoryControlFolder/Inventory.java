@@ -41,6 +41,7 @@ public class Inventory {
         header = String.format("| %-"+idWidth+"s | %-"+nameWidth+"s | %-"+quantityWidth+"s | %-"+priceWidth+"s |\n",
         "Product ID", "Product Name", "Quantity on hand", "Price ($)");
         report.append(header);
+        report.append("\n");
         
         // Add the details for each product
         for (int i = 0; i < products.size(); i++) {
