@@ -1,14 +1,12 @@
+
+
 public class Main {
     public static void main(String[] args) {
-        // Testing Report Generation 
-        ReportGenerationFolder.InventoryReport inventoryReport = new ReportGenerationFolder.InventoryReport();
+        ReportGenerationFolder.Reports report = new ReportGenerationFolder.Reports();
 
-        try {
-            inventoryReport.generateReport();
-            
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+
+        // testing Report Generation Menu
+        report.displayReportMenu();
 
 
     }
