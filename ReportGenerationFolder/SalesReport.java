@@ -53,7 +53,6 @@ public class SalesReport {
         PrintWriter outFS = new PrintWriter(fileStream)) {
 
 
-
         // test 
         System.out.println("Starting report generation...");
 
