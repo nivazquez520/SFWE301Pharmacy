@@ -7,8 +7,10 @@ public class Product {
     private int productInventoryQuantity;
     private int productQuantityPurchased;
 
+    private boolean controlledStatus = false;
+    private int daysToExpire = -1;
 
-    public Product(int productID, int productQuantity) {
+    public Product(int productID, int productQuantity) { // use this for testing, probably remove once and use the method below when testing is done
         this.productID = productID;
         this.productInventoryQuantity = productQuantity;
     }
@@ -21,6 +23,16 @@ public class Product {
         this.productInventoryQuantity = 0;
     }
 
+    public Product(int productID, String productName, double productPrice, int productQuantityPurchased, boolean controlledStatus, int daysToExpire) {
+        this.productID = productID;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productQuantityPurchased = productQuantityPurchased;
+        this.productInventoryQuantity = 0;
+        this.controlledStatus = controlledStatus;
+        this.daysToExpire = daysToExpire;
+    }
+
     public int getProductID() {
         return productID;
     }
@@ -31,6 +43,14 @@ public class Product {
 
     public double getProductPrice() {
         return productPrice;
+    }
+
+    public boolean getControlledStatus() {
+        return controlledStatus;
+    }
+
+    public int getDaysToExpire() {
+        return daysToExpire;
     }
 
     public void setProductPrice(double newProductPrice) {
@@ -53,5 +73,11 @@ public class Product {
         this.productQuantityPurchased = quantityPurchased;
     }
 
+    public void setControlledStatus(boolean controlledStatus) {
+        this.controlledStatus = controlledStatus;
+    }
 
+    public void setDaysToExpire(int daysToExpire) {
+        this.daysToExpire = daysToExpire;
+    }
 }
