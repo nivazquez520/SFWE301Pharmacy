@@ -1,4 +1,5 @@
 package ReportGenerationFolder;
+import InventoryControlFolder.Product;
 import TransactionLoggingFolder.Transaction;
 import TransactionLoggingFolder.TransactionLog;
 import java.io.FileOutputStream;
@@ -13,7 +14,7 @@ public class TransactionReport {
     LocalDateTime currentDateTime = LocalDateTime.now();
 
     public void generateReport() throws IOException {
-        TransactionLog transactionLog = new TransactionLog();
+        TransactionLog transactionLog = TransactionLog.getInstance();
 
          // try to open file 
         try (FileOutputStream fileStream = new FileOutputStream("TransactionReport.txt");
@@ -24,8 +25,14 @@ public class TransactionReport {
         Transaction t2 = new Transaction();
         Transaction t3 = new Transaction();
 
+        t1.getProductsSold().add(new Product(101, "Widget", 9.99, 2));
         transactionLog.logTransaction(t1);
+
+        t2.getProductsSold().add(new Product(102, "Gadget", 20.99, 4));
+        t2.getProductsSold().add(new Product(101, "Widget", 9.99, 1));
         transactionLog.logTransaction(t2);
+
+        t3.getProductsSold().add(new Product(103, "Thingamajig", 15.99, 6));
         transactionLog.logTransaction(t3);
 
 

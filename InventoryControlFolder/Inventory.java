@@ -8,7 +8,7 @@ public class Inventory {
         boolean itemFound = false;
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
-                products.get(i).setProductQuantity(products.get(i).getProductQuantity() + productQuantityToAdd);
+                products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() + productQuantityToAdd);
                 itemFound = true;
             }
         }
@@ -22,7 +22,7 @@ public class Inventory {
     public void deleteInventory(int productID, int productQuantityToDelete) {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
-                products.get(i).setProductQuantity(products.get(i).getProductQuantity() - productQuantityToDelete);
+                products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() - productQuantityToDelete);
             }
         }
 
@@ -49,7 +49,7 @@ public class Inventory {
             "| %-"+idWidth+"s | %-"+nameWidth+"s | %-"+quantityWidth+"d | %-"+priceWidth+".2f |\n",
             "#" + products.get(i).getProductID(),         // Product ID with #
             products.get(i).getProductName(),             // Product Name
-            products.get(i).getProductQuantity(),         // Quantity
+            products.get(i).getProductInventoryQuantity(),         // Quantity
             products.get(i).getProductPrice());   // Price to 2 decimal places
             
             report.append(row);

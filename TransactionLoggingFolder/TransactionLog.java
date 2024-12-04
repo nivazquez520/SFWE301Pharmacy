@@ -8,7 +8,7 @@ public class TransactionLog {
     public static TransactionLog instance;
 
     // Private constructor to enforce singleton pattern
-    public TransactionLog() {
+    private TransactionLog() {
         transactions = new ArrayList<>();
     }
 
@@ -43,8 +43,7 @@ public class TransactionLog {
         int itemsSoldWidth = 20;
         int transactionTypeWidth = 20;
         int transactionAmountWidth = 20;
-        // total values
-        int totalNumTransactionsWidth = 25;
+        int totalNumTransactionsWidth = 25;      // column widths for totals
         int totalItemsSoldWidth = 25;
         int totalSalesWidth = 25;
         int totalItemsSold = 0;
@@ -63,11 +62,11 @@ public class TransactionLog {
                 "| %-"+transactionNumWidth+"s | %-"+patientIDWidth+"s | %-"+itemsSoldWidth+"d | %-"+transactionTypeWidth+"s | %-"+transactionAmountWidth+".2f   |\n",
                 "#" + transactions.get(i).getTransactionNumber(),  // Transaction number with #
                 transactions.get(i).getPatientID(),                // Patient ID
-                transactions.get(i).getItemsSold(),                // Quantity of items sold
+                transactions.get(i).getNumProductsSold(),                // Quantity of items sold
                 transactions.get(i).getTransactionType(),          // Transaction type
                 transactions.get(i).getTransactionAmount()         // Amount (formatted to 2 decimals)
             );
-            totalItemsSold += transactions.get(i).getItemsSold();
+            totalItemsSold += transactions.get(i).getNumProductsSold();
             totalSales += transactions.get(i).getTransactionAmount();
             report.append(row);
         }
