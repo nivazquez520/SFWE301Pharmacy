@@ -1,3 +1,4 @@
+package BackEndFolder;
 public class Customer extends Account { //sub class of account
     private boolean LoyaltyProgram;
     private ShoppingCart Cart;
