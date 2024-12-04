@@ -1,5 +1,6 @@
 package ReportGenerationFolder;
 import InventoryControlFolder.Inventory;
+import BackEndFolder.Employee;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +16,15 @@ public class InventoryReport {
         try (FileOutputStream fileStream = new FileOutputStream("InventoryReport.txt");
         PrintWriter outFS = new PrintWriter(fileStream)) {
 
+        // test employee
+        Employee testManager = new Employee("Manager", "1", "testing", 3);
+        Employee testCashier = new Employee("Cashier", "2", "testing", 0);
 
+    
         // adding inventory for tests
-        inventory.addInventory(11111, 3);    // addInventory(productID, quantityToAdd)
-        inventory.addInventory(11112, 5);
+        inventory.addInventory(11112, 5, testCashier); // test auth level too low
+        inventory.addInventory(11111, 3, testManager);    // addInventory(productID, quantityToAdd)
+        inventory.addInventory(11112, 5, testManager);
         
 
         // test 
