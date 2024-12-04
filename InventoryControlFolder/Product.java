@@ -4,18 +4,21 @@ public class Product {
     private int productID = 0;
     private String productName = "";
     private double productPrice = 0.0;
-    private int productQuantity = 0;
+    private int productInventoryQuantity;
+    private int productQuantityPurchased;
+
 
     public Product(int productID, int productQuantity) {
         this.productID = productID;
-        this.productQuantity = productQuantity;
+        this.productInventoryQuantity = productQuantity;
     }
 
-    public Product(int productID, String productName, double productPrice, int productQuantity) {
+    public Product(int productID, String productName, double productPrice, int productQuantityPurchased) {
         this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
+        this.productQuantityPurchased = productQuantityPurchased;
+        this.productInventoryQuantity = 0;
     }
 
     public int getProductID() {
@@ -34,12 +37,20 @@ public class Product {
         this.productPrice = newProductPrice;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
+    public int getProductInventoryQuantity() {
+        return productInventoryQuantity;
     }
 
-    public void setProductQuantity(int newProductQuantity) {
-        this.productQuantity = newProductQuantity;
+    public void setProductInventoryQuantity(int newProductQuantity) {
+        this.productInventoryQuantity = newProductQuantity;
+    }
+
+    public int getQuantityPurchased() {
+        return productQuantityPurchased;
+    }
+
+    public void setQuantityPurchased(int quantityPurchased) {
+        this.productQuantityPurchased = quantityPurchased;
     }
 
 
