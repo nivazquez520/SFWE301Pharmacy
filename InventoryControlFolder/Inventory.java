@@ -37,20 +37,20 @@ public class Inventory {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
                 products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() - productQuantityToDelete);
-                System.out.println("Succesful");
+                System.out.println("Succesful deletion");
             }
         }
     }
 
     public void deleteInventoryControlled(int productID, int productQuantityToDelete, Employee employeeMain, Employee employeeSup) {
-        if ((employeeMain.getAuthLevel() < 3 || employeeSup.getAuthLevel() < 2) || (employeeMain.getAuthLevel() < 2 || employeeSup.getAuthLevel() < 3)) {
+        if ((employeeMain.getAuthLevel() < 3 || employeeSup.getAuthLevel() < 2)) {
             System.out.println("Auth level too low, failed to delete controlled substance, further access required");
             return; // check auth level of both employees, fail to delete if employee auth is below 3 and 2
         }
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
                 products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() - productQuantityToDelete);
-                System.out.println("Succesful");
+                System.out.println("Succesful deletion");
             }
         }
     }
@@ -71,10 +71,10 @@ public class Inventory {
         for (int i = 0; i < products.size(); i++) {
             products.get(i).setDaysToExpire(products.get(i).getDaysToExpire() - days);
             if (products.get(i).getDaysToExpire() == 30 || products.get(i).getDaysToExpire() == 14 || products.get(i).getDaysToExpire() == 7 || products.get(i).getDaysToExpire() == 3) {
-                System.out.println("Product: " + products.get(i).getProductName() + "has " + products.get(i).getDaysToExpire() + " left till expiry");
+                System.out.println("Product: " + products.get(i).getProductID() + " has " + products.get(i).getDaysToExpire() + " left till expiry");
             }
             if (products.get(i).getDaysToExpire() == 0) {
-                System.out.println("Product: " + products.get(i).getProductName() + " has expired. Please discard.");
+                System.out.println("Product " + products.get(i).getProductID() + " has expired. Please discard.");
             }
         }
     }

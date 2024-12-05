@@ -12,7 +12,7 @@ public class InventoryManagement {
         Employee testManager = new Employee("Manager", "1", "testing", 3);
         Employee testPharmacist = new Employee("Pharmacist", "2", "testing", 2);
         Employee testPharmacyTech = new Employee("Pharmacy Tech", "3", "testing", 1);
-        Employee testCashier = new Employee("Cashier", "2", "testing", 0);
+        Employee testCashier = new Employee("Cashier", "4", "testing", 0);
         Employees.add(testManager);
         Employees.add(testPharmacist);
         Employees.add(testPharmacyTech);
@@ -32,7 +32,7 @@ public class InventoryManagement {
         System.out.print("Please enter your password: ");
         password = scnr.next();
         ArrayList<Employee> Employees = EmployeeCreate();
-        for (int i = 0; i < Employees.size() - 1; i++) {
+        for (int i = 0; i < Employees.size(); i++) {
             if (userName.equals(Employees.get(i).getUserName())) {
                 if (password.equals(Employees.get(i).setPassword())) {
                     loggedIn = true;
@@ -56,6 +56,7 @@ public class InventoryManagement {
     public Employee SecondaryEmployee() {
         boolean loggedIn = false;
         Employee currentEmployee = null;
+        int test = 0;
         while (!loggedIn) {
         String userName = null;
         String password = null;
@@ -64,20 +65,21 @@ public class InventoryManagement {
         System.out.print("Please enter secondary password: ");
         password = scnr.next();
         ArrayList<Employee> Employees = EmployeeCreate();
-        for (int i = 0; i < Employees.size() - 1; i++) {
+        for (int i = 0; i < Employees.size(); i++) {
             if (userName.equals(Employees.get(i).getUserName())) {
                 if (password.equals(Employees.get(i).setPassword())) {
                     loggedIn = true;
                     System.out.println("Logged in succesfully");
                     currentEmployee = Employees.get(i);
+                    test = 1;
                 }
                 else {
                     System.out.println("Invalid username or password, try again");
                 }
             }
-            else {
+        }
+        if (test == 0) {
                 System.out.println("Invalid username or password, try again");
-            }
         }
         }
         secEmployee = currentEmployee;
@@ -103,7 +105,7 @@ public class InventoryManagement {
             int productID = scnr.nextInt();
             System.out.println("Enter the product quantity:");
             int productQuantityToDelete = scnr.nextInt();
-            inv.deleteInventoryControlled(productID, productQuantityToDelete, currEmployee, secEmployee);
+            inv.deleteInventoryControlled(productID, productQuantityToDelete, currEmployee, SecondaryEmployee());
         }
         else if (input == 'c') {
             System.out.println("Enter the product ID");
