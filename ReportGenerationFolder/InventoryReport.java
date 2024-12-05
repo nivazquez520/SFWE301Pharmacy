@@ -18,13 +18,15 @@ public class InventoryReport {
 
         // test employee
         Employee testManager = new Employee("Manager", "1", "testing", 3);
+        Employee testPharmacist = new Employee("Pharmacist", "2", "testing", 2);
+        Employee testPharmacyTech = new Employee("Pharmacy Tech", "3", "testing", 1);
         Employee testCashier = new Employee("Cashier", "2", "testing", 0);
 
     
         // adding inventory for tests
-        inventory.addInventory(11112, 5, testCashier); // test auth level too low
-        inventory.addInventory(11111, 3, testManager);    // addInventory(productID, quantityToAdd)
-        inventory.addInventory(11112, 5, testManager);
+        inventory.addInventory(11112, 5, false, testCashier, 120); // test auth level too low
+        inventory.addInventory(11111, 3, false ,testManager, 120);    // addInventory(productID, quantityToAdd)
+        inventory.addInventory(11112, 5, false, testManager, 120);
         
 
         // test 
