@@ -31,6 +31,21 @@ public class TransactionLog {
         return transactions;
     }
 
+
+    public Transaction getIndividualTransaction(int transactionNumber) {
+        Transaction transaction = null;
+
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getTransactionNumber() == transactionNumber ) {
+                transaction = transactions.get(i);
+            }
+        }
+        if (transaction == null) {
+            System.out.println("Error: Transaction not found.");
+        }
+        return transaction;
+    }
+
     // Method to display the transaction log
     public String displayInfo() {
         StringBuilder report = new StringBuilder();
@@ -76,7 +91,7 @@ public class TransactionLog {
         report.append("\n\n\n\n\n\n\n\n"); // Blank lines before totals
         totalsHeader = String.format(
         "| %-"+totalNumTransactionsWidth+"s | %-"+totalItemsSoldWidth+"s | %-"+totalSalesWidth+"s |\n", 
-        "Total # of Transactions", "Total Items Sold", "Total Sales ($)");
+        "Total # of Transactions", "Total Units Sold", "Total Sales ($)");
         report.append(totalsHeader);
         report.append("\n");
 
