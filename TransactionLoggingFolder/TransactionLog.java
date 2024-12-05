@@ -8,7 +8,7 @@ public class TransactionLog {
     public static TransactionLog instance;
 
     // Private constructor to enforce singleton pattern
-    public TransactionLog() {
+    private TransactionLog() {
         transactions = new ArrayList<>();
     }
 
@@ -31,6 +31,21 @@ public class TransactionLog {
         return transactions;
     }
 
+
+    public Transaction getIndividualTransaction(int transactionNumber) {
+        Transaction transaction = null;
+
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getTransactionNumber() == transactionNumber ) {
+                transaction = transactions.get(i);
+            }
+        }
+        if (transaction == null) {
+            System.out.println("Error: Transaction not found.");
+        }
+        return transaction;
+    }
+
     // Method to display the transaction log
     public String displayInfo() {
         StringBuilder report = new StringBuilder();
@@ -43,8 +58,7 @@ public class TransactionLog {
         int itemsSoldWidth = 20;
         int transactionTypeWidth = 20;
         int transactionAmountWidth = 20;
-        // total values
-        int totalNumTransactionsWidth = 25;
+        int totalNumTransactionsWidth = 25;      // column widths for totals
         int totalItemsSoldWidth = 25;
         int totalSalesWidth = 25;
         int totalItemsSold = 0;
@@ -63,11 +77,11 @@ public class TransactionLog {
                 "| %-"+transactionNumWidth+"s | %-"+patientIDWidth+"s | %-"+itemsSoldWidth+"d | %-"+transactionTypeWidth+"s | %-"+transactionAmountWidth+".2f   |\n",
                 "#" + transactions.get(i).getTransactionNumber(),  // Transaction number with #
                 transactions.get(i).getPatientID(),                // Patient ID
-                transactions.get(i).getItemsSold(),                // Quantity of items sold
+                transactions.get(i).getNumProductsPurchased(),                // Quantity of items sold
                 transactions.get(i).getTransactionType(),          // Transaction type
                 transactions.get(i).getTransactionAmount()         // Amount (formatted to 2 decimals)
             );
-            totalItemsSold += transactions.get(i).getItemsSold();
+            totalItemsSold += transactions.get(i).getNumProductsPurchased();
             totalSales += transactions.get(i).getTransactionAmount();
             report.append(row);
         }
@@ -77,7 +91,7 @@ public class TransactionLog {
         report.append("\n\n\n\n\n\n\n\n"); // Blank lines before totals
         totalsHeader = String.format(
         "| %-"+totalNumTransactionsWidth+"s | %-"+totalItemsSoldWidth+"s | %-"+totalSalesWidth+"s |\n", 
-        "Total # of Transactions", "Total Items Sold", "Total Sales ($)");
+        "Total # of Transactions", "Total Units Sold", "Total Sales ($)");
         report.append(totalsHeader);
         report.append("\n");
 
