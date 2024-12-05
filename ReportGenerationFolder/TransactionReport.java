@@ -6,11 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 
 public class TransactionReport {
-    Scanner scanner = new Scanner(System.in);
     LocalDateTime currentDateTime = LocalDateTime.now();
 
     public void generateReport() throws IOException {

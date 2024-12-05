@@ -76,7 +76,7 @@ public class TransactionLog {
         report.append("\n\n\n\n\n\n\n\n"); // Blank lines before totals
         totalsHeader = String.format(
         "| %-"+totalNumTransactionsWidth+"s | %-"+totalItemsSoldWidth+"s | %-"+totalSalesWidth+"s |\n", 
-        "Total # of Transactions", "Total Items Sold", "Total Sales ($)");
+        "Total # of Transactions", "Total Units Sold", "Total Sales ($)");
         report.append(totalsHeader);
         report.append("\n");
 
