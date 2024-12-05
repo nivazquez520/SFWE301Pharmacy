@@ -5,7 +5,7 @@ import BackEndFolder.*;
 public class Inventory {
     public ArrayList<Product> products = new ArrayList<>();
 
-    public void addInventory(int productID, int productQuantityToAdd, Employee employee) {
+    public void addInventory(int productID, int productQuantityToAdd, boolean Controlled, Employee employee, int daysToExpire) {
         if (employee.getAuthLevel() < 3) { // check auth level of employee before performing commands
             System.out.println("Auth level too low, failed to add");
             return;
@@ -19,7 +19,7 @@ public class Inventory {
         }
         // if productID is not found in the list or product list is emtpty, add new product to inventory
        if (!itemFound) {
-            products.add(new Product(productID, productQuantityToAdd));
+            products.add(new Product(productID, productQuantityToAdd, 120));
        }
 
     }
@@ -37,6 +37,7 @@ public class Inventory {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
                 products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() - productQuantityToDelete);
+                System.out.println("Succesful");
             }
         }
     }
@@ -49,6 +50,7 @@ public class Inventory {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getProductID() == productID) {
                 products.get(i).setProductInventoryQuantity(products.get(i).getProductInventoryQuantity() - productQuantityToDelete);
+                System.out.println("Succesful");
             }
         }
     }
@@ -56,7 +58,19 @@ public class Inventory {
     public void decrementExpireEOD() { // call this at the end of day so that the drugs expire date is decremented.
         for (int i = 0; i < products.size(); i++) {
             products.get(i).setDaysToExpire(products.get(i).getDaysToExpire() - 1);
-            if (products.get(i).getDaysToExpire() == 30 || products.get(i).getDaysToExpire() == 60 || products.get(i).getDaysToExpire() == 90) {
+            if (products.get(i).getDaysToExpire() == 30 || products.get(i).getDaysToExpire() == 14 || products.get(i).getDaysToExpire() == 7 || products.get(i).getDaysToExpire() == 3) {
+                System.out.println("Product: " + products.get(i).getProductName() + "has " + products.get(i).getDaysToExpire() + " left till expiry");
+            }
+            if (products.get(i).getDaysToExpire() == 0) {
+                System.out.println("Product: " + products.get(i).getProductName() + " has expired. Please discard.");
+            }
+        }
+    }
+
+    public void decrementExpireEOD(int days) { // call this at the end of day so that the drugs expire date is decremented.
+        for (int i = 0; i < products.size(); i++) {
+            products.get(i).setDaysToExpire(products.get(i).getDaysToExpire() - days);
+            if (products.get(i).getDaysToExpire() == 30 || products.get(i).getDaysToExpire() == 14 || products.get(i).getDaysToExpire() == 7 || products.get(i).getDaysToExpire() == 3) {
                 System.out.println("Product: " + products.get(i).getProductName() + "has " + products.get(i).getDaysToExpire() + " left till expiry");
             }
             if (products.get(i).getDaysToExpire() == 0) {
