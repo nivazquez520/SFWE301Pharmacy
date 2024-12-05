@@ -10,13 +10,42 @@ import java.io.FileReader;
 public class Backend { //uses shoppingcart.java for shopping cart
     private String accFilePath; //File path containing data of different accounts
     private String CredFilePath; //File path containg data of different Credits Cards
+    private String Address = "4521 Healthy BLVD";
+    private String OwnerName = "Barce Farkley";
     private CardAccountList CardList;
+    private AccountList accountList;
+    private PharmInfo pharmInfo;
 
     public Backend(String accFilePath, String CredFilePath) { //Backend is initialized with names of data files
         this.accFilePath = accFilePath;
         this.CredFilePath = CredFilePath;
         this.CardList = new CardAccountList();
+        this.accountList = new AccountList();
+        this.pharmInfo = new PharmInfo(Address, OwnerName, 0);
     }
+
+    public Account getAccount(int i) {
+        try {
+            accountList.get(i);
+            System.out.println("Account Found");
+            return accountList.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Account out of bounds: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public CardAccount getCardAccount(int i) {
+        try {
+            CardList.get(i);
+            System.out.println("Account Found");
+            return CardList.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Card Account out of bounds: " + e.getMessage());
+            return null;
+        }
+    }
+    
     public boolean LoadCardInformation() { // loads card information into cardlist from csv files, returns true if file is found and read from successfully
         boolean retval = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(CredFilePath))) {
@@ -33,8 +62,32 @@ public class Backend { //uses shoppingcart.java for shopping cart
         return retval;
     }
 
-    public boolean LoadAccountInformation() {//FIXME: set up an account database with a csv files.
-        return false;
+    public boolean LoadAccountInformation() {//FIXED: set up an account database with a csv files. 
+                                                            //Find account informaton based on ID number
+        boolean retval = false; // return true if account is foun
+        try (BufferedReader reader = new BufferedReader(new FileReader(accFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) { //     account csv set up as: ID, type, username, password, authlevel(emp), 
+                String [] values  = line.split(","); // loyProg(cust), Rnoti(cust), Aorder(cust), loyPoints(cust), CardNum(cust);
+
+                if (values[1].equals("Employee")) {
+                    Employee employee = new Employee(values[2], values[0], values[3], Integer.parseInt(values[4]));
+                    accountList.addAccount(employee);//FIXED: create add account function in AccountList for employees
+                    pharmInfo.addEmployee(employee);
+                    retval = true;
+                }
+                else if (values[1].equals("Customer")) {
+                    Customer customer = new Customer(values[2], values[0], values[3], Boolean.parseBoolean(values[5]), Boolean.parseBoolean(values[6])
+                                                    , Boolean.parseBoolean(values[7]), Integer.parseInt(values[8]), values[9]);
+                    accountList.addAccount(customer); //FIXED: create add account function in AccountList for customers
+                }
+                
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            return retval;
+        }
+        return retval; // returns null if account is not found
     }
 
     

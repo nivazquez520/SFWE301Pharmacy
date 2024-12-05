@@ -1,0 +1,3 @@
+ID,accType,userName,password,authlevel,Lprog,RNoti,Aorder,LoyaltyPoints,CardNumber
+009922,Employee,Manager,PasString,5
+123456,Customer,CustOne,CustPass,0,true,true,true,100,1234567890123456

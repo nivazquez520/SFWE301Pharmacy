@@ -1,9 +1,11 @@
 package BackEndFolder;
 import java.util.ArrayList;
 
+import InventoryControlFolder.Product;
+
 public class ShoppingCart { //uses item.java for items.
     //private item [] itemArray;
-    private ArrayList<item> itemArray = new ArrayList<>();
+    private ArrayList<Product> itemArray = new ArrayList<>();
     //private int arraySize;
     private int items;
     //private final double OverRatio = 0.75; //used to determine when to resize, now useless now that we use lists
@@ -27,17 +29,17 @@ public class ShoppingCart { //uses item.java for items.
     public int numItems() { //returns the number of items, independent of quantity, just by name
         return items;
     }
-    public void addItem(String name, double price, int quantity) {
+    public void addItem(int productID, String name, double price, int quantity) {
         int i;
-        item newItem = new item(name, price, quantity);
+        Product newItem = new Product(productID, name, price, quantity);
         for (i = 0; i < itemArray.size(); i++) { //checks to see if item is already in list
-            if (itemArray.get(i).getName().equals(name)) {
-                int oldquant = itemArray.get(i).getQuantity();
-                itemArray.get(i).setQuantity(quantity + oldquant);
+            if (itemArray.get(i).getProductName().equals(name)) {
+                int oldquant = itemArray.get(i).getProductQuantity();
+                itemArray.get(i).setProductQuantity(quantity + oldquant);
             }
         }
         for (i = 0; i < itemArray.size(); i++) { //checks after item isn't already found
-            if (itemArray.get(i).getName().equals("null")) { // if the array element is empty
+            if (itemArray.get(i).getProductName().equals("")) { // if the array element is empty
                 itemArray.set(i, newItem);
                 items++;
                 break;
@@ -50,12 +52,13 @@ public class ShoppingCart { //uses item.java for items.
         int i;
         boolean retval = false;
         for (i = 0; i < itemArray.size(); i++) {
-            if (itemArray.get(i).getName().equals(name)) {
+            if (itemArray.get(i).getProductName().equals(name)) {
                 //removedItem = itemArray.get(i);
                 itemArray.remove(i);
                 retval = true;
             }
         }
+        zeroQuantFlush();
         return retval;
     }
     public boolean changeQuantity(String name, int newQuant) { //changes quantity of an item given the name, returns false if item is not found
@@ -63,19 +66,20 @@ public class ShoppingCart { //uses item.java for items.
         //item newQuantItem = new item();
         boolean retval = false;
         for (i = 0; i < itemArray.size(); i++) {
-            if (itemArray.get(i).getName().equals(name)) {
-                itemArray.get(i).setQuantity(newQuant);
+            if (itemArray.get(i).getProductName().equals(name)) {
+                itemArray.get(i).setProductQuantity(newQuant);
                 return true;
             }
         }
+        zeroQuantFlush();
         return retval;
     }
     public double cartTotal() {
         double total = 0.0;
         int i;
         for (i = 0; i < itemArray.size(); i++) {
-            if (itemArray.get(i).getPrice() >= -1.0) {
-                total += itemArray.get(i).getTotalPrice();
+            if (itemArray.get(i).getProductPrice() >= -1.0) {
+                total += itemArray.get(i).getProductPrice() * itemArray.get(i).getProductQuantity();
             }
         }
         return total;
@@ -84,6 +88,15 @@ public class ShoppingCart { //uses item.java for items.
         int i;
         for (i = 0; i < itemArray.size(); i++) {
             itemArray.remove(i);
+        }
+    }
+
+    public void zeroQuantFlush() { //if a product's quantity is changed to zero or a negative number
+        int i;                     //it is removed from the cart
+        for (i = 0; i < itemArray.size(); i++) {
+            if (itemArray.get(i).getProductQuantity() <= 0) {
+                itemArray.remove(i);
+            }
         }
     }
 
