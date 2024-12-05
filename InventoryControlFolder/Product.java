@@ -1,84 +1,54 @@
-package InventoryControlFolder;
+package ReportGenerationFolder;
+import InventoryControlFolder.Inventory;
+import BackEndFolder.Employee;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
 
-public class Product {
-    private int productID = 0;
-    private String productName = "";
-    private double productPrice = 0.0;
-    private int productInventoryQuantity;
-    private int productQuantityPurchased;
+public class InventoryReport {
+    LocalDateTime currentDateTime = LocalDateTime.now();
 
-    private boolean controlledStatus = false;
-    private int daysToExpire = -1;
+    public void generateReport() throws IOException {
+        Inventory inventory = new Inventory();
 
-    public Product(int productID, int productQuantity, int daysToExpire) { // use this for testing, probably remove once and use the method below when testing is done
-        this.productID = productID;
-        this.productInventoryQuantity = productQuantity;
-        this.daysToExpire = daysToExpire;
+        // try to open file 
+        try (FileOutputStream fileStream = new FileOutputStream("InventoryReport.txt");
+        PrintWriter outFS = new PrintWriter(fileStream)) {
+
+        // test employee
+        Employee testManager = new Employee("Manager", "1", "testing", 3);
+        Employee testPharmacist = new Employee("Pharmacist", "2", "testing", 2);
+        Employee testPharmacyTech = new Employee("Pharmacy Tech", "3", "testing", 1);
+        Employee testCashier = new Employee("Cashier", "2", "testing", 0);
+
+    
+        // adding inventory for tests
+        inventory.addInventory(11112, 5, false, testCashier, 120); // test auth level too low
+        inventory.addInventory(11111, 3, false ,testManager, 120);    // addInventory(productID, quantityToAdd)
+        inventory.addInventory(11112, 5, false, testManager, 120);
+        
+
+        // test 
+        System.out.println("Starting report generation...");
+
+        // Arriving here implies that the file can now be written
+        // to, otherwise an exception would have been thrown.
+        outFS.println("Date of Report: " + currentDateTime + "\n");
+        outFS.println("----------------------------------- INVENTORY REPORT -----------------------------------\n");
+        outFS.println(inventory.displayInfo());
+        outFS.println("----------------------------------------------------------------------------------------");
+
+        
+        // Done with file, so try to close
+        // Note that close() may throw an IOException on failure
+        outFS.flush();
+        outFS.close();
+
+
+        // print statement for testing
+        System.out.println("Report successfully generated.");
+        }
     }
-
-    public Product(int productID, String productName, double productPrice, int productQuantityPurchased) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantityPurchased = productQuantityPurchased;
-        this.productInventoryQuantity = 0;
-    }
-
-    public Product(int productID, String productName, double productPrice, int productQuantityPurchased, boolean controlledStatus, int daysToExpire) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantityPurchased = productQuantityPurchased;
-        this.productInventoryQuantity = 0;
-        this.controlledStatus = controlledStatus;
-        this.daysToExpire = daysToExpire;
-    }
-
-    public int getProductID() {
-        return productID;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public double getProductPrice() {
-        return productPrice;
-    }
-
-    public boolean getControlledStatus() {
-        return controlledStatus;
-    }
-
-    public int getDaysToExpire() {
-        return daysToExpire;
-    }
-
-    public void setProductPrice(double newProductPrice) {
-        this.productPrice = newProductPrice;
-    }
-
-    public int getProductInventoryQuantity() {
-        return productInventoryQuantity;
-    }
-
-    public void setProductInventoryQuantity(int newProductQuantity) {
-        this.productInventoryQuantity = newProductQuantity;
-    }
-
-    public int getQuantityPurchased() {
-        return productQuantityPurchased;
-    }
-
-    public void setQuantityPurchased(int quantityPurchased) {
-        this.productQuantityPurchased = quantityPurchased;
-    }
-
-    public void setControlledStatus(boolean controlledStatus) {
-        this.controlledStatus = controlledStatus;
-    }
-
-    public void setDaysToExpire(int daysToExpire) {
-        this.daysToExpire = daysToExpire;
-    }
+    
 }
