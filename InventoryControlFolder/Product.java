@@ -10,9 +10,10 @@ public class Product {
     private boolean controlledStatus = false;
     private int daysToExpire = -1;
 
-    public Product(int productID, int productQuantity) { // use this for testing, probably remove once and use the method below when testing is done
+    public Product(int productID, int productQuantity, int daysToExpire) { // use this for testing, probably remove once and use the method below when testing is done
         this.productID = productID;
         this.productInventoryQuantity = productQuantity;
+        this.daysToExpire = daysToExpire;
     }
 
     public Product(int productID, String productName, double productPrice, int productQuantityPurchased) {
