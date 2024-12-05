@@ -1,10 +1,10 @@
 package InventoryControlFolder;
 
 public class Product {
-    private int productID;
-    private String productName;
-    private double productPrice;
-    private int productQuantity;
+    private int productID = 0;
+    private String productName = "";
+    private double productPrice = 0.0;
+    private int productQuantity = 0;
 
     public Product(int productID, int productQuantity) {
         this.productID = productID;

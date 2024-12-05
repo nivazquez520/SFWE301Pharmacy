@@ -1,8 +1,10 @@
 package TransactionLoggingFolder;
-import java.util.ArrayList;
 import InventoryControlFolder.Product;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Transaction {
+    LocalDateTime currentDateTime = LocalDateTime.now();
     private int transactionNumber;
     private String transactionType; 
     private double transactionAmount; 
@@ -31,6 +33,39 @@ public class Transaction {
 
         // Automatically add a transaction created to the transaction log
         TransactionLog.getInstance().logTransaction(this);
+     }
+
+     public Transaction() {
+         this.transactionNumber = 0;
+         this.transactionType = "";
+         this.transactionAmount = 0.0;
+         this.transactionDate = currentDateTime.toLocalDate().toString();
+         this.transactionTime = currentDateTime.toLocalTime().toString();
+         this.patientID = 0;
+         this.cashierName = "";
+         this.productsSold = new ArrayList<>();
+         this.itemsSold = 0;
+         this.paymentMethod = "";
+     }
+
+     public int getTransactionNumber() {
+         return this.transactionNumber;
+     }
+
+     public int getPatientID() {
+         return this.patientID;
+     }
+
+     public int getItemsSold() {
+         return this.itemsSold;
+     }
+
+     public String getTransactionType() {
+         return this.transactionType;
+     }
+
+     public double getTransactionAmount() {
+         return this.transactionAmount; 
      }
 
 }

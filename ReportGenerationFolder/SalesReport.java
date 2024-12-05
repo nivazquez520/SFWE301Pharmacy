@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class SalesReport {
     Scanner scanner = new Scanner(System.in);
 
+
+
     public void generateReport() throws IOException {
         FileOutputStream fileStream = null;
         PrintWriter outFS = null;
