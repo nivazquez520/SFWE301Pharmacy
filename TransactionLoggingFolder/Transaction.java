@@ -68,6 +68,22 @@ public class Transaction {
          return this.patientID;
      }
 
+     public String getDate() {
+        return this.transactionDate;
+     }
+
+     public String getTime() {
+        return this.transactionTime;  
+     }
+
+     public String getCashierName() {
+        return this.cashierName;
+     }
+
+     public String getPaymentMethod() {
+        return this.paymentMethod;
+     }
+
      public int getNumProductsPurchased() {
          int totalQuantity = 0;
          for (int i = 0; i < productsPurchased.size(); ++i) {

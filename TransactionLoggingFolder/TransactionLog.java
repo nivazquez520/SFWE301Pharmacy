@@ -31,6 +31,21 @@ public class TransactionLog {
         return transactions;
     }
 
+
+    public Transaction getIndividualTransaction(int transactionNumber) {
+        Transaction transaction = null;
+
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getTransactionNumber() == transactionNumber ) {
+                transaction = transactions.get(i);
+            }
+        }
+        if (transaction == null) {
+            System.out.println("Error: Transaction not found.");
+        }
+        return transaction;
+    }
+
     // Method to display the transaction log
     public String displayInfo() {
         StringBuilder report = new StringBuilder();

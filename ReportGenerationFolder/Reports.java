@@ -26,7 +26,19 @@ public class Reports {
                     switch(reportType) {
                         case 'a' -> inventoryReport.generateReport();
                         case 'b' -> salesReport.generateReport();
-                        case 'c' -> transactionReport.generateReport();
+                        case 'c' -> {
+                            System.out.println("Would you like to generate a report for a specific transaction? (y/n)");
+                            char specificTransaction = scanner.next().charAt(0);
+                            if (specificTransaction == 'y') {
+                                System.out.println("Please enter the transaction number: ");
+                                int transactionNumber = scanner.nextInt();
+                                transactionReport.displayIndividualTransaction(transactionNumber);
+                            }
+                            else {
+                                System.out.println("Generating report for all transactions...");
+                                transactionReport.generateReport();
+                            }
+                        }
                         case 'x' -> {response = 'n'; // Ensure the outer loop exits.
                                     break;     // Exit the menu loop immediately.
                         }
