@@ -62,11 +62,11 @@ public class TransactionLog {
                 "| %-"+transactionNumWidth+"s | %-"+patientIDWidth+"s | %-"+itemsSoldWidth+"d | %-"+transactionTypeWidth+"s | %-"+transactionAmountWidth+".2f   |\n",
                 "#" + transactions.get(i).getTransactionNumber(),  // Transaction number with #
                 transactions.get(i).getPatientID(),                // Patient ID
-                transactions.get(i).getNumProductsSold(),                // Quantity of items sold
+                transactions.get(i).getNumProductsPurchased(),                // Quantity of items sold
                 transactions.get(i).getTransactionType(),          // Transaction type
                 transactions.get(i).getTransactionAmount()         // Amount (formatted to 2 decimals)
             );
-            totalItemsSold += transactions.get(i).getNumProductsSold();
+            totalItemsSold += transactions.get(i).getNumProductsPurchased();
             totalSales += transactions.get(i).getTransactionAmount();
             report.append(row);
         }

@@ -28,7 +28,7 @@ public class SalesReport {
 
             // Process transactions to aggregate sales data
             for (Transaction transaction : transactionLog.getTransactions()) {
-                for (Product product : transaction.getProductsSold()) {
+                for (Product product : transaction.getProductsPurchased()) {
                     int productID = product.getProductID();
                     if (salesData.containsKey(productID)) {
                             ProductSales productSales = salesData.get(productID);
