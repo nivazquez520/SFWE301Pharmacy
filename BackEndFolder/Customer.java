@@ -6,7 +6,9 @@ public class Customer extends Account { //sub class of account
     private boolean autoOrder;
     private int LoyaltyPoints;
     private String CardNumber;
+
     public Customer() {
+        super();
         this.LoyaltyProgram = false;
         this.Cart = new ShoppingCart();
         this.RefillNoti = false;
@@ -14,7 +16,9 @@ public class Customer extends Account { //sub class of account
         this.LoyaltyPoints = 0;
         this.CardNumber = "";
     }
-    public Customer(boolean LProg, boolean RNoti, boolean AOrder, int LoyaltyPoints, String CardNumber) {
+    
+    public Customer(String username, String ID, String password, boolean LProg, boolean RNoti, boolean AOrder, int LoyaltyPoints, String CardNumber) {
+        super(username, ID, password);
         this.LoyaltyProgram = LProg;
         this.Cart = new ShoppingCart();
         this.RefillNoti = RNoti;

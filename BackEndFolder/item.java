@@ -1,5 +1,5 @@
 package BackEndFolder;
-public class item {
+public class item { //This class is currently not being used
     public String itemName;
     public double itemPrice;
     public int itemQuantity;

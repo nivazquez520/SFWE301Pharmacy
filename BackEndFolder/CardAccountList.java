@@ -2,49 +2,8 @@ package BackEndFolder;
 import java.util.ArrayList;
 
 public class CardAccountList {//CardAccount List uses CardAccount
-    public class CardAccount {
 
-        protected String NameOnCard;
-        protected String CardNum;
-        protected String CVV;
-        protected String ZipCode;
-        protected double balance;
-
-        public CardAccount () {
-            this.NameOnCard = "";
-            this.CardNum = "";
-            this.CVV = "";
-            this.ZipCode = "";
-            this.balance = 0.0;
-        }
-        public CardAccount(String NameonCard, String CardNum, String CVV, String ZipCode, double balance) {
-            this.NameOnCard = NameonCard;
-            this.CardNum = CardNum;
-            this.CVV = CVV;
-            this.ZipCode = ZipCode;
-            this.balance = balance;
-        }
-        //setters
-        public void setNewBalance(double newBalance) {
-            balance = newBalance;
-        }
-        //getters
-        public String getNameOnCard() {
-            return NameOnCard;
-        }
-        public String getCardNum() {
-            return CardNum;
-        }
-        public String getCVV() {
-            return CVV;
-        }
-        public String getZipCode() {
-            return ZipCode;
-        }
-        public double getBalance() {
-            return balance;
-        }
-    }
+    //CardAccountList class
     private ArrayList<CardAccount> CardList;
     public CardAccountList() {
         CardList = new ArrayList<>();
@@ -52,6 +11,7 @@ public class CardAccountList {//CardAccount List uses CardAccount
     public void addAccount(CardAccount cAcc) { //returns true if account is added successfully
         CardList.add(cAcc);
     }
+
     public void addAccount(String nameOnCard, String CardNum, String CVV, String ZipCode, double balance) {
         CardAccount newAccount = new CardAccount(nameOnCard, CardNum, CVV, ZipCode, balance);
         CardList.add(newAccount);
@@ -67,6 +27,16 @@ public class CardAccountList {//CardAccount List uses CardAccount
             }
         }
         return retval;
+    }
+
+    public CardAccount get(int i) {// returns card account in list, if out of bounds, returns null
+        try {
+            System.out.println("Account Found");
+            return CardList.get(i);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Account out of bounds: " + e.getMessage());
+            return null;
+        }
     }
     //getters
     // public String getNameOnCard() {
