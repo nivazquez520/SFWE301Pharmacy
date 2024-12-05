@@ -21,18 +21,18 @@ public class TransactionReport {
         PrintWriter outFS = new PrintWriter(fileStream)) {
 
         // add transactions for tests
-        Transaction t1 = new Transaction();
+        Transaction t1 = new Transaction("Sale", 123456, "Seti", "Cash");
         Transaction t2 = new Transaction();
-        Transaction t3 = new Transaction();
+        Transaction t3 = new Transaction("Return", 456789, "Ali", "Credit");
 
-        t1.getProductsSold().add(new Product(101, "Widget", 9.99, 2));
+        t1.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 2));
         transactionLog.logTransaction(t1);
 
-        t2.getProductsSold().add(new Product(102, "Gadget", 20.99, 4));
-        t2.getProductsSold().add(new Product(101, "Widget", 9.99, 1));
+        t2.getProductsPurchased().add(new Product(102, "Excedrin", 20.99, 4));
+        t2.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 1));
         transactionLog.logTransaction(t2);
 
-        t3.getProductsSold().add(new Product(103, "Thingamajig", 15.99, 6));
+        t3.getProductsPurchased().add(new Product(103, "Tylenol", 15.99, 6));
         transactionLog.logTransaction(t3);
 
 
