@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 public class TransactionReport {
@@ -84,8 +85,78 @@ public class TransactionReport {
 
     }
 
+    public void displayTransactionsByDate(String startDateStr, String endDateStr) throws IOException{
+        int columnWidth = 20;
+        int totalsColumnWidth = 25;
+        int totalItemsSold = 0;
+        double totalSales = 0.0;
+        ArrayList<Transaction> transactionList = transactionLog.getTransactionsByDate(startDateStr, endDateStr);
+
+
+         // try to open file 
+        try (FileOutputStream fileStream = new FileOutputStream("TransactionReport.txt");
+        PrintWriter outFS = new PrintWriter(fileStream)) {
+            System.out.println("Starting report generation...");
+
+        // Arriving here implies that the file can now be written
+        // to, otherwise an exception would have been thrown.
+        outFS.println("Date of Report: " + currentDateTime + "\n\n");
+        outFS.println("*** Displaying transactions between " + startDateStr + " and " + endDateStr + " ***\n\n");
+        outFS.println("------------------------------------------------------------ TRANSACTION REPORT ------------------------------------------------------------\n");
+
+        // Transaction details table header
+        outFS.printf(
+        "| %-"+columnWidth+"s | %-"+columnWidth+"s | %-"+columnWidth+"s | %-"+columnWidth+"s | %-"+columnWidth+"s |\n",
+        "Transaction Number", "Patient ID", "Items Sold", "Transaction Type", "Transaction Amount ($)");
+        
+        outFS.println();
+        // Transaction details
+        for (Transaction transaction: transactionList) {
+            outFS.printf(
+                "| %-"+columnWidth+"s | %-"+columnWidth+"s | %-"+columnWidth+"d | %-"+columnWidth+"s | %-"+columnWidth+".2f   |\n",
+                "#" + transaction.getTransactionNumber(),
+                transaction.getPatientID(),
+                transaction.getNumProductsPurchased(),
+                transaction.getTransactionType(),
+                transaction.getTransactionAmount()
+            );
+            totalItemsSold += transaction.getNumProductsPurchased();
+            totalSales += transaction.getTransactionAmount();
+        }
+
+        // add totals to the report 
+        outFS.println("\n\n\n\n\n\n\n\n"); // Blank lines before totals
+        outFS.printf(
+        "| %-"+totalsColumnWidth+"s | %-"+totalsColumnWidth+"s | %-"+totalsColumnWidth+"s |\n", 
+        "Total # of Transactions", "Total Units Sold", "Total Sales ($)");
+        outFS.println("");
+
+        // Add totals row
+        outFS.printf(
+        "| %-"+totalsColumnWidth+"d | %-"+totalsColumnWidth+"d | %-"+totalsColumnWidth+".2f |\n",
+         transactionList.size(), // Total number of transactions
+        totalItemsSold,         // Total items sold
+        totalSales);           // Total sales amount (formatted to 2 decimals)
+
+        outFS.println("\n\n\n");
+
+
+        outFS.println("--------------------------------------------------------------------------------------------------------------------------------------------");
+
+        
+        // Done with file, so try to close
+        // Note that close() may throw an IOException on failure
+        outFS.flush();
+        outFS.close();
+
+
+        // print statement for testing
+        System.out.println("Report successfully generated.");
+        }
+
+    }
+
     public void generateReport() throws IOException {
-        // TransactionLog transactionLog = TransactionLog.getInstance();
 
          // try to open file 
         try (FileOutputStream fileStream = new FileOutputStream("TransactionReport.txt");
