@@ -1,4 +1,5 @@
 package TransactionLoggingFolder;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TransactionLog {
@@ -44,6 +45,22 @@ public class TransactionLog {
             System.out.println("Error: Transaction not found.");
         }
         return transaction;
+    }
+
+    public ArrayList<Transaction> getTransactionsByDate(String startDateStr, String endDateStr) {
+        ArrayList<Transaction> transactionList = new ArrayList<>();
+        LocalDate startDate = LocalDate.parse(startDateStr);
+        LocalDate endDate = LocalDate.parse(endDateStr);
+
+        for (Transaction transaction : transactions) {
+        LocalDate transactionDate = LocalDate.parse(transaction.getDate());
+            if ((transactionDate.isEqual(startDate) || transactionDate.isAfter(startDate)) &&
+                (transactionDate.isEqual(endDate) || transactionDate.isBefore(endDate))) {
+                transactionList.add(transaction);
+            }
+        }
+
+        return transactionList;
     }
 
     // Method to display the transaction log
