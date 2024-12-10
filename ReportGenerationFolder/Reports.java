@@ -25,9 +25,23 @@ public class Reports {
                 // generate report based on user input
                     switch(reportType) {
                         case 'a' -> inventoryReport.generateReport();
-                        case 'b' -> salesReport.generateReport();
+                        case 'b' -> {
+                            System.out.println("Would you like to generate a Sales Report for a specific date range? (y/n)");
+                            char dateRange = scanner.next().charAt(0);
+                            if (dateRange == 'y') {
+                                System.out.println("Please enter the start date in the format yyyy-mm-dd:");
+                                    String startDate = scanner.next();
+                                    System.out.println("Please enter the end date in the format yyyy-mm-dd:");
+                                    String endDate = scanner.next();
+                                    salesReport.displaySalesByDate(startDate, endDate);
+                            }
+                            else {
+                                System.out.println("Generating report for all sales...\n");
+                                salesReport.generateReport();
+                            }
+                        }
                         case 'c' -> {
-                            System.out.println("Would you like to generate a report for a specific transaction? (y/n)");
+                            System.out.println("Would you like to generate a report for a single transaction? (y/n)");
                             char specificTransaction = scanner.next().charAt(0);
                             if (specificTransaction == 'y') {
                                 System.out.println("Please enter the transaction number: ");
@@ -35,8 +49,19 @@ public class Reports {
                                 transactionReport.displayIndividualTransaction(transactionNumber);
                             }
                             else {
-                                System.out.println("Generating report for all transactions...");
+                                System.out.println("Would you like to generate a report for transactions within a date range? (y/n)");
+                                char dateRange = scanner.next().charAt(0);
+                                if (dateRange == 'y') {
+                                    System.out.println("Please enter the start date in the format yyyy-mm-dd:");
+                                    String startDate = scanner.next();
+                                    System.out.println("Please enter the end date in the format yyyy-mm-dd:");
+                                    String endDate = scanner.next();
+                                    transactionReport.displayTransactionsByDate(startDate, endDate);
+                                }
+                                else {
+                                System.out.println("Generating report for all transactions...\n");
                                 transactionReport.generateReport();
+                                }
                             }
                         }
                         case 'x' -> {response = 'n'; // Ensure the outer loop exits.

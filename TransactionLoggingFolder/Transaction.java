@@ -5,11 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Transaction {
-    LocalDateTime currentDateTime = LocalDateTime.now();
-
     private static int nextTransactionNumber = 1;
     private int transactionNumber;
-    private String transactionType; 
+    private String transactionType; // (Sale, Return, Pharmacy_Order) 
     private double transactionAmount = 0.0; 
     private String transactionDate;
     private String transactionTime; 
@@ -17,7 +15,7 @@ public class Transaction {
     private String cashierName;
     private ArrayList<Product> productsPurchased = new ArrayList<>(); 
     private int numProductsPurchased = 0;
-    private String paymentMethod;
+    private String paymentMethod;   // (Cash, Credit, Debit, Check, Insurance)
 
 
     public Transaction(String transactionType, int patientID, String cashierName, String paymentMethod) {
