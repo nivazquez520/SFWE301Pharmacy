@@ -1,8 +1,24 @@
 package InventoryControlFolder;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Inventory {
+   // The single instance of Inventory
+    private static Inventory instance;
+
+    // The list of products in the inventory
     public ArrayList<Product> products = new ArrayList<>();
+
+    // Private constructor to prevent instantiation
+    private Inventory() {}
+
+    // Public method to provide access to the single instance
+    public static Inventory getInstance() {
+        if (instance == null) {
+            instance = new Inventory();
+        }
+        return instance;
+    }
 
     public void addInventory(int productID, int productQuantityToAdd) {
         boolean itemFound = false;
@@ -14,7 +30,15 @@ public class Inventory {
         }
         // if productID is not found in the list or product list is emtpty, add new product to inventory
        if (!itemFound) {
-            products.add(new Product(productID, productQuantityToAdd));
+            Scanner scanner = new Scanner(System.in); // Import java.util.Scanner
+            System.out.print("Item not found in system. Please enter the product name for product ID " + productID + ": ");
+            String productName = scanner.nextLine();
+            System.out.print("Please enter the unit price for " + productName + ": ");
+            double productPrice = scanner.nextDouble();
+
+            // add product to inventory
+            products.add(new Product(productID, productName, productQuantityToAdd, productPrice));
+            System.out.println("New product added: " + productName);
        }
 
     }

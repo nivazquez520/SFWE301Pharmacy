@@ -8,9 +8,17 @@ public class Product {
     private int productQuantityPurchased;
 
 
-    public Product(int productID, int productQuantity) {
+    public Product(int productID, String productName, int productQuantity, double productPrice) {
         this.productID = productID;
+        this.productName = productName;
         this.productInventoryQuantity = productQuantity;
+        this.productPrice = productPrice;
+    }
+
+    public Product(int productID, double productPrice) {
+        this.productID = productID;
+        this.productPrice = productPrice;
+        this.productName = "";
     }
 
     public Product(int productID, String productName, double productPrice, int productQuantityPurchased) {
@@ -27,6 +35,10 @@ public class Product {
 
     public String getProductName() {
         return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public double getProductPrice() {

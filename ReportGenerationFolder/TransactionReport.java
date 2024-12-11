@@ -167,14 +167,19 @@ public class TransactionReport {
         Transaction t2 = new Transaction();
         Transaction t3 = new Transaction("Return", 456789, "Ali", "Credit");
 
-        t1.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 2));
+        // t1.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 2));
+        // addProductToTransaction(Product product, int quantityPurchased)
+        t1.addProductToTransaction(101, 2);
         transactionLog.logTransaction(t1);
 
-        t2.getProductsPurchased().add(new Product(102, "Excedrin", 20.99, 4));
-        t2.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 1));
+        // t2.getProductsPurchased().add(new Product(102, "Excedrin", 20.99, 4));
+        // t2.getProductsPurchased().add(new Product(101, "Ibuprofen", 9.99, 1));
+        t2.addProductToTransaction(102, 4);
+        t2.addProductToTransaction(101, 1);
         transactionLog.logTransaction(t2);
 
-        t3.getProductsPurchased().add(new Product(103, "Tylenol", 15.99, 6));
+        // t3.getProductsPurchased().add(new Product(103, "Tylenol", 15.99, 6));
+        t3.addProductToTransaction(103, 6);
         transactionLog.logTransaction(t3);
 
 

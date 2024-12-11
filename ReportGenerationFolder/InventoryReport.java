@@ -9,7 +9,7 @@ public class InventoryReport {
     LocalDateTime currentDateTime = LocalDateTime.now();
 
     public void generateReport() throws IOException {
-        Inventory inventory = new Inventory();
+        Inventory inventory = Inventory.getInstance();
 
         // try to open file 
         try (FileOutputStream fileStream = new FileOutputStream("InventoryReport.txt");
@@ -17,8 +17,10 @@ public class InventoryReport {
 
 
         // adding inventory for tests
-        inventory.addInventory(11111, 3);    // addInventory(productID, quantityToAdd)
-        inventory.addInventory(11112, 5);
+        inventory.addInventory(101, 50);    // addInventory(productID, quantityToAdd)
+        inventory.addInventory(102, 200);
+        inventory.addInventory(103, 200);
+        inventory.addInventory(101, 150);
         
 
         // test 

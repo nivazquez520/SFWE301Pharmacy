@@ -1,4 +1,5 @@
 package TransactionLoggingFolder;
+import InventoryControlFolder.Inventory;
 import InventoryControlFolder.Product;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -111,7 +112,23 @@ public class Transaction {
          return this.productsPurchased;
      }
 
-     public void addProductToTransaction (Product product, int quantityPurchased) {
+     public void addProductToTransaction (int productID, int quantityPurchased) {
+         // find product in inventory
+         Product product = null;
+         for (Product p: Inventory.getInstance().products) {
+            if (p.getProductID() == productID) {
+               product = p;
+               break;
+            }
+         }
+
+         // if product is not found, display error message
+         if (product == null) {
+            System.out.println("Error: Product with ID" + productID + " not found in inventory.");
+            return;
+         }
+
+         // check if there is sufficient stock 
          if (quantityPurchased > product.getProductInventoryQuantity()) {
             System.out.println("Error: Insufficient stock for " + product.getProductName());
             return;     
@@ -128,7 +145,7 @@ public class Transaction {
          // set quantity purchased
          purchasedProduct.setQuantityPurchased(quantityPurchased); // set quantity purchased
 
-         // add product to the productsSold list
+         // add product to the productsPurchased list
          this.productsPurchased.add(purchasedProduct);
 
          // update total number of products sold in the transaction
@@ -140,5 +157,4 @@ public class Transaction {
          // reduce inventory quantity 
          product.setProductInventoryQuantity(product.getProductInventoryQuantity() - quantityPurchased); 
      }
-
 }
