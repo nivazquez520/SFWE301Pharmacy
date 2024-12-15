@@ -6,7 +6,6 @@ public class FrontEnd {
     public FrontEnd() {
         Scanner scanner = new Scanner(System.in);
         char select;
-        String username, password;
         
         Backend backend = new Backend("Accounts.csv", "CreditCard.csv");
         backend.LoadAccountInformation();
@@ -19,9 +18,9 @@ public class FrontEnd {
             boolean login = false;
 
             System.out.print("Enter your username: ");
-            username = scanner.nextLine();
+            String username = scanner.nextLine();
             System.out.print("Enter your password: ");
-            password = scanner.nextLine();
+            String password = scanner.nextLine();
             
             for (int i = 0; i < backend.sizeAccountList(); i++) {
                 if (backend.getAccount(i).getUserName().equals(username)) {
@@ -44,7 +43,9 @@ public class FrontEnd {
 
         else if (select == 'c') {
             System.out.print("Enter your username: ");
+            String username = scanner.nextLine();
             System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
         }
     }
 }
