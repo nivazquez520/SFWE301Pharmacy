@@ -1,7 +1,6 @@
 package BackEndFolder;
-import java.util.ArrayList;
-
 import InventoryControlFolder.Product;
+import java.util.ArrayList;
 
 public class ShoppingCart { //uses item.java for items.
     //private item [] itemArray;
@@ -34,8 +33,8 @@ public class ShoppingCart { //uses item.java for items.
         Product newItem = new Product(productID, name, price, quantity);
         for (i = 0; i < itemArray.size(); i++) { //checks to see if item is already in list
             if (itemArray.get(i).getProductName().equals(name)) {
-                int oldquant = itemArray.get(i).getProductQuantity();
-                itemArray.get(i).setProductQuantity(quantity + oldquant);
+                int oldquant = itemArray.get(i).getProductInventoryQuantity();
+                itemArray.get(i).setProductInventoryQuantity(quantity + oldquant);
             }
         }
         for (i = 0; i < itemArray.size(); i++) { //checks after item isn't already found
@@ -67,7 +66,7 @@ public class ShoppingCart { //uses item.java for items.
         boolean retval = false;
         for (i = 0; i < itemArray.size(); i++) {
             if (itemArray.get(i).getProductName().equals(name)) {
-                itemArray.get(i).setProductQuantity(newQuant);
+                itemArray.get(i).setProductInventoryQuantity(newQuant);
                 return true;
             }
         }
@@ -79,7 +78,7 @@ public class ShoppingCart { //uses item.java for items.
         int i;
         for (i = 0; i < itemArray.size(); i++) {
             if (itemArray.get(i).getProductPrice() >= -1.0) {
-                total += itemArray.get(i).getProductPrice() * itemArray.get(i).getProductQuantity();
+                total += itemArray.get(i).getProductPrice() * itemArray.get(i).getProductInventoryQuantity();
             }
         }
         return total;
@@ -94,7 +93,7 @@ public class ShoppingCart { //uses item.java for items.
     public void zeroQuantFlush() { //if a product's quantity is changed to zero or a negative number
         int i;                     //it is removed from the cart
         for (i = 0; i < itemArray.size(); i++) {
-            if (itemArray.get(i).getProductQuantity() <= 0) {
+            if (itemArray.get(i).getProductInventoryQuantity() <= 0) {
                 itemArray.remove(i);
             }
         }

@@ -22,13 +22,13 @@ public class Account { //Super class for all accounts including customer, employ
     public void setPassword(String password) {
         this.password = password;
     }
-    public String setPassword() {
-        return password;
+    public String getPassword() {
+        return this.password;
     }
     public void setUserName(String userName) {
         this.userName = userName;
     }
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 }
