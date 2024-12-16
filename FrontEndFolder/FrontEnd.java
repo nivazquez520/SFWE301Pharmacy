@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 
 public class FrontEnd {
+    String accFilePath, credFilePath, prescFilePath;
     Backend backend;
     PrescriptionsProcessing prescriptions;
     Inventory inventories;
@@ -69,10 +70,14 @@ public class FrontEnd {
         }
     }
 
-    public FrontEnd(String accFilePath, String credFilePath, String prescFilePath) {
+    public FrontEnd(Backend bcakend, String prescFilePath) {
+        this.backend = bcakend;
+        this.prescFilePath = prescFilePath;
+    }
+
+    public void start() {
         try (Scanner scanner = new Scanner(System.in)) {
             char select;
-            this.backend = new Backend(accFilePath, credFilePath);
             this.prescriptions = new PrescriptionsProcessing();
             this.prescriptions.loadPrescriptions(prescFilePath);
             this.cart = new ShoppingCart();
@@ -85,7 +90,6 @@ public class FrontEnd {
             
             if (select == 'e') {
                 boolean login = false;
-                //Account account;
 
                 System.out.print("Enter your username: ");
                 String username = scanner.nextLine();
@@ -96,7 +100,6 @@ public class FrontEnd {
                     if (backend.getAccount(i).getUserName().equals(username)) {
                         if (backend.getAccount(i).getPassword().equals(password)) {
                             System.out.println("Login successful!");
-                            //account = backend.getAccount(i);
                         }
                     }
                 }
