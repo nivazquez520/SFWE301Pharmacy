@@ -36,16 +36,12 @@ public class ShoppingCart { //uses item.java for items.
 
                 int oldquant = itemArray.get(i).getQuantityPurchased();
                 itemArray.get(i).setQuantityPurchased(quantity + oldquant);
+                return;
 
             }
         }
-        for (i = 0; i < itemArray.size(); i++) { //checks after item isn't already found
-            if (itemArray.get(i).getProductName().equals("")) { // if the array element is empty
-                itemArray.set(i, newItem);
-                items++;
-                break;
-            }
-        }
+        itemArray.add(newItem);
+        return;
         
     }
     public boolean removeItem(String name) { //returns true if item is found and removed, false otherwise

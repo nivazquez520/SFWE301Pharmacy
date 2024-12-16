@@ -34,7 +34,7 @@ public class InventoryManagement {
         ArrayList<Employee> Employees = EmployeeCreate();
         for (int i = 0; i < Employees.size(); i++) {
             if (userName.equals(Employees.get(i).getUserName())) {
-                if (password.equals(Employees.get(i).setPassword())) {
+                if (password.equals(Employees.get(i).getPassword())) {
                     loggedIn = true;
                     System.out.println("Logged in succesfully");
                     currentEmployee = Employees.get(i);
@@ -67,7 +67,7 @@ public class InventoryManagement {
         ArrayList<Employee> Employees = EmployeeCreate();
         for (int i = 0; i < Employees.size(); i++) {
             if (userName.equals(Employees.get(i).getUserName())) {
-                if (password.equals(Employees.get(i).setPassword())) {
+                if (password.equals(Employees.get(i).getPassword())) {
                     loggedIn = true;
                     System.out.println("Logged in succesfully");
                     currentEmployee = Employees.get(i);

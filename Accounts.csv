@@ -1,3 +1,6 @@
 ID,accType,userName,password,authlevel,Lprog,RNoti,Aorder,LoyaltyPoints,CardNumber
 009922,Employee,Manager,PasString,5
 123456,Customer,CustOne,CustPass,0,true,true,true,100,1234567890123456
+234987,Customer,CustTwo,TwoPassword,1,false,false,true,200,12385439086049
+258903,Employee,EmpOne,EmpPassword,2
+323409,FAccount,BadAcc,BadPass,4

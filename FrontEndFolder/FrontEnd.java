@@ -3,7 +3,7 @@ import BackEndFolder.Backend;
 import java.util.Scanner;
 
 public class FrontEnd {
-    public FrontEnd() {
+    public void FrontEnd() {
         Scanner scanner = new Scanner(System.in);
         char select;
         

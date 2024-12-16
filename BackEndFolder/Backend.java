@@ -1,7 +1,10 @@
 package BackEndFolder;
+import InventoryControlFolder.Product;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Backend { //uses shoppingcart.java for shopping cart
     private String accFilePath; //File path containing data of different accounts
@@ -20,6 +23,147 @@ public class Backend { //uses shoppingcart.java for shopping cart
         this.pharmInfo = new PharmInfo(Address, OwnerName, 0);
     }
 
+    public void addCustomerAccount () {
+        Scanner scnr = new Scanner(System.in);
+        int i;
+        
+        System.out.println("Enter desired Username: ");
+        String newUser = scnr.next();
+        System.out.println("Enter desired Password: ");
+        String newPass = scnr.next();
+        for (i = 0; i < accountList.size(); i++) {
+            if (accountList.get(i).getUserName() == newUser) {
+                System.out.println("Username already taken");
+                i = 0;
+                System.out.println("Enter desired Username: ");
+                newUser = scnr.next();
+                System.out.println("Enter desired Password: ");
+                newPass = scnr.next();
+            }
+        }
+        Random rand = new Random();
+        int custID = rand.nextInt(1000000);
+        //Integer.toString(custID);
+        Customer tempCust = new Customer(newUser, Integer.toString(custID), newPass, false, false, false, 0, "");
+        boolean Rnoti = false, Aorder = false, LProg = false;
+        System.out.println("Would you like refill Notifications? (y/n): ");
+        if ("y".equals(scnr.next())) {
+            tempCust.setRefillNoti(true);
+        }
+        System.out.println("Would you like Automatic ordering for Prescriptions? (y/n): ");
+        if ("y".equals(scnr.next())) {
+            tempCust.setAutoOrder(true);
+        }
+        System.out.println("Would you like to join the Loyalty program? (y/n): ");
+        if ("y".equals(scnr.next())) {
+            tempCust.setLoyalty(true);
+        }
+        accountList.addAccount(tempCust);
+        int custMenuChoice = 0;
+        while (custMenuChoice != 6) {
+            System.out.println("Menu for Customer: " + tempCust.getUserName());
+            System.out.println("1) Purchase items");
+            System.out.println("2) Change Refill Notifications");
+            System.out.println("3) Change Automatic Ordering");
+            System.out.println("4) Check loyalty points");
+            System.out.println("5) Add payment method");
+            System.out.println("6) LogOut");
+            custMenuChoice = scnr.nextInt();
+            switch (custMenuChoice) {
+                case 1: 
+                    simShoppingCart(tempCust);
+                    break;
+                case 2:
+                    System.out.println("Current Refill Notification Status: " + ((tempCust.getRefillNoti()) ? "ON" : "Off"));
+                    System.out.println("Change? (y/n)");
+                    if (scnr.next().equals("y")) { tempCust.setRefillNoti(!tempCust.getRefillNoti()); } // sets opposite if change
+                    break;
+                case 3:
+                    System.out.println("Current Auto Order Status: " + ((tempCust.getAutoOrder()) ? "ON" : "Off"));
+                    System.out.println("Change? (y/n)");
+                    if (scnr.next().equals("y")) { tempCust.setAutoOrder(!tempCust.getAutoOrder()); } // sets opposite if change
+                    break;
+                case 4:
+                    System.out.println("Loyalty points: " + tempCust.getPoints());
+                    break;
+                case 5:
+                    System.out.println("Enter 16 digit Card Number: ");
+                    String tempCard = scnr.next();
+                    if (tempCard.length() != 16) {
+                        System.out.println("Invalid Card Number");
+                        break;
+                    }
+                    tempCust.setCardNumber(tempCard);
+                    break;
+                case 6:
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+
+            }
+        }
+        
+    }
+
+    private void simShoppingCart(Customer customer) {
+        Scanner scnr = new Scanner(System.in);
+        String testIbu = "Ibuprofen";
+        double testIbuPrice = 12.00;
+        Product product = new Product(5146, testIbu, testIbuPrice, 1);
+        String custChoice = "y";
+        while (custChoice.equals("y")) {
+            System.out.println("Add item by Name: ");
+            scnr.next();
+            customer.addItem(product.getProductID(), product.getProductName(), product.getProductPrice(), product.getQuantityPurchased());
+            System.out.println("Cart Total: $" + customer.CartTotal());
+            System.out.println("Add Another item? (y/n)");
+            custChoice = scnr.next();
+        }
+        if (customer.getCardNumber() != "") {
+            CustomerPurchaseCart(customer, false);
+        }
+        else {
+            boolean cardComp = false;
+            while (!cardComp) {
+                System.out.println("Enter payment method (Card Number): ");
+                String newCard = scnr.next();
+                if (newCard.length() != 16) {
+                    System.out.println("Invalid Card Number");
+                }
+                else {
+                    System.out.println("Valid Number");
+                    customer.setCardNumber(newCard);
+                    cardComp = true;
+                }
+            }
+            CustomerPurchaseCart(customer, false);
+        }
+    }
+
+    public boolean customerLogin() {
+        Scanner scnr = new Scanner(System.in);
+        int i;
+        boolean retval = false;
+        String userName, password;
+        System.out.println("Enter userName: ");
+        userName = scnr.next();
+        System.out.println("Enter Password: ");
+        password = scnr.next();
+        for (i = 0; i < accountList.size(); i++) {
+            if (accountList.get(i).getUserName().equals(userName) && accountList.get(i).getPassword().equals(password)) {
+                System.out.println("Customer login successful");
+                retval = true;
+                break;
+            }
+        }
+        if (!retval) {
+            System.out.println("Customer login unsuccessful");
+        }
+        return retval;
+    }
+
     public Account getAccount(int i) {
         try {
             accountList.get(i);
@@ -33,6 +177,10 @@ public class Backend { //uses shoppingcart.java for shopping cart
 
     public int sizeAccountList() {
         return accountList.size();
+    }
+
+    public int sizeCardList() {
+        return CardList.size();
     }
 
     public CardAccount getCardAccount(int i) {
@@ -50,6 +198,7 @@ public class Backend { //uses shoppingcart.java for shopping cart
         boolean retval = false;
         try (BufferedReader reader = new BufferedReader(new FileReader(CredFilePath))) {
             String line;
+            line = reader.readLine();
             while ((line = reader.readLine()) != null) { //adds a new account from every line in the CreditCard.csv File
                 String [] values = line.split(",");
                 System.out.println("NameOnCard: " + values[0] + ", CardNumber: " + values[1] + ", CVV: " + values[2] + ", ZipCode: " + values[3] + ", Balance: " + values[4]);
