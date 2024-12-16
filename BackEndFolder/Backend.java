@@ -1,11 +1,7 @@
 package BackEndFolder;
-import java.util.ArrayList;
-//import javax.smartcardio.Card;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class Backend { //uses shoppingcart.java for shopping cart
     private String accFilePath; //File path containing data of different accounts
@@ -33,6 +29,10 @@ public class Backend { //uses shoppingcart.java for shopping cart
             System.out.println("Account out of bounds: " + e.getMessage());
             return null;
         }
+    }
+
+    public int sizeAccountList() {
+        return accountList.size();
     }
 
     public CardAccount getCardAccount(int i) {

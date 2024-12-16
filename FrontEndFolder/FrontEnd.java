@@ -1,49 +1,51 @@
 package FrontEndFolder;
-import java.awt.BorderLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-//import java.awt.event.ActionEvent;
+import BackEndFolder.Backend;
+import java.util.Scanner;
 
-public class FrontEnd extends JFrame {
-    private final DefaultListModel<String> taskModel;
-    private final JList<String> taskList;
+public class FrontEnd {
     public FrontEnd() {
-        JFrame frame = new JFrame("Pharmacy App");
-        frame.setSize(400, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        Scanner scanner = new Scanner(System.in);
+        char select;
+        
+        Backend backend = new Backend("Accounts.csv", "CreditCard.csv");
+        backend.LoadAccountInformation();
+        backend.LoadCardInformation();
 
-        // Input Panel with Buttons
-        JPanel inputPanel = new JPanel();
-        JButton loginButton = new JButton("Login");
-        JButton createButton = new JButton("Create");
+        System.out.print("Employee or Custemr? (e or c) ");
+        select = scanner.next().charAt(0);
+        
+        if (select == 'e') {
+            boolean login = false;
 
-        inputPanel.add(loginButton);
-        inputPanel.add(createButton);
-        frame.add(inputPanel, BorderLayout.NORTH);
+            System.out.print("Enter your username: ");
+            String username = scanner.nextLine();
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+            
+            for (int i = 0; i < backend.sizeAccountList(); i++) {
+                if (backend.getAccount(i).getUserName().equals(username)) {
+                    if (backend.getAccount(i).getPassword().equals(password)) {
+                        System.out.println("Login successful!");
+                        login = true;
+                    }
+                }
+            }
 
-        // Task List in Center
-        taskModel = new DefaultListModel<>();
-        taskList = new JList<>(taskModel);
-        JScrollPane scrollPane = new JScrollPane(taskList);
-        frame.add(scrollPane, BorderLayout.CENTER);
+            if (!login) {
+                System.out.println("Invalid username or password.");
+            }
+            else {
+                System.out.println("Do you want to access to prescriptions? (p)");
+                System.out.println("Do you want to access to inventory? (i)");
+                System.out.println("Do you want to access to patient data? (d)");
+            }
+        }
 
-        // Action Listener for Create Button
-        createButton.addActionListener(e -> {
-            // Switch to the Create Page
-            dispose(); // Close current window
-            new CreatePage(); // Open CreatePage window
-        });
-
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(FrontEnd::new);
+        else if (select == 'c') {
+            System.out.print("Enter your username: ");
+            String username = scanner.nextLine();
+            System.out.print("Enter your password: ");
+            String password = scanner.nextLine();
+        }
     }
 }
