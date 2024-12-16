@@ -4,13 +4,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Backend { //uses shoppingcart.java for shopping cart
-    private String accFilePath; //File path containing data of different accounts
-    private String CredFilePath; //File path containg data of different Credits Cards
-    private String Address = "4521 Healthy BLVD";
-    private String OwnerName = "Barce Farkley";
-    private CardAccountList CardList;
-    private AccountList accountList;
-    private PharmInfo pharmInfo;
+    private final String accFilePath; //File path containing data of different accounts
+    private final String CredFilePath; //File path containg data of different Credits Cards
+    private final String Address = "4521 Healthy BLVD";
+    private final String OwnerName = "Barce Farkley";
+    private final CardAccountList CardList;
+    private final AccountList accountList;
+    private final PharmInfo pharmInfo;
 
     public Backend(String accFilePath, String CredFilePath) { //Backend is initialized with names of data files
         this.accFilePath = accFilePath;
@@ -93,7 +93,6 @@ public class Backend { //uses shoppingcart.java for shopping cart
     
 
     public boolean CustomerPurchaseCart(Customer customer, boolean usePoints) {// returns false if customer is not found or cannot make purchase
-        int i;
         String custCardNum = customer.getCardNumber();
         boolean retval = false;
         if (CardList.getBalance(custCardNum) <= 0.0) { //if customer is not found, default return in CardAccountList.java

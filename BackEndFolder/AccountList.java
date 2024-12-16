@@ -2,7 +2,7 @@ package BackEndFolder;
 
 import java.util.ArrayList;
 public class AccountList {
-    private ArrayList<Account> AccList;
+    private final ArrayList<Account> AccList;
     private int Accounts;
 
     public AccountList() {

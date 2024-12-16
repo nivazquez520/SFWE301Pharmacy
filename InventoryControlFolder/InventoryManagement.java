@@ -7,6 +7,7 @@ public class InventoryManagement {
     Scanner scnr = new Scanner(System.in);
     Employee currEmployee = null;
     Employee secEmployee = null;
+    
     public ArrayList<Employee> EmployeeCreate() {
         ArrayList<Employee> Employees = new ArrayList<Employee>();
         Employee testManager = new Employee("Manager", "1", "testing", 3);
@@ -19,35 +20,37 @@ public class InventoryManagement {
         Employees.add(testCashier);
         return Employees;
     }
+    
     public Employee InventorySystem() {
         boolean loggedIn = false;
         System.out.println("Entering inventory system");
         Employee currentEmployee = null;
+        
         while (!loggedIn) {
             int test = 0;
-        String userName = null;
-        String password = null;
-        System.out.print("Please enter your username: ");
-        userName = scnr.next();
-        System.out.print("Please enter your password: ");
-        password = scnr.next();
-        ArrayList<Employee> Employees = EmployeeCreate();
-        for (int i = 0; i < Employees.size(); i++) {
-            if (userName.equals(Employees.get(i).getUserName())) {
-                if (password.equals(Employees.get(i).setPassword())) {
-                    loggedIn = true;
-                    System.out.println("Logged in succesfully");
-                    currentEmployee = Employees.get(i);
-                    test = 1;
-                }
-                else {
-                    System.out.println("Invalid username or password, try again");
+            String userName = null;
+            String password = null;
+            System.out.print("Please enter your username: ");
+            userName = scnr.next();
+            System.out.print("Please enter your password: ");
+            password = scnr.next();
+            ArrayList<Employee> Employees = EmployeeCreate();
+            for (int i = 0; i < Employees.size(); i++) {
+                if (userName.equals(Employees.get(i).getUserName())) {
+                    if (password.equals(Employees.get(i).getPassword())) {
+                        loggedIn = true;
+                        System.out.println("Logged in succesfully");
+                        currentEmployee = Employees.get(i);
+                        test = 1;
+                    }
+                    else {
+                        System.out.println("Invalid username or password, try again");
+                    }
                 }
             }
-        }
-        if (test == 0) {
+            if (test == 0) {
                 System.out.println("Invalid username or password, try again");
-        }
+            }
         }
         currEmployee = currentEmployee;
         return currentEmployee;
@@ -57,30 +60,32 @@ public class InventoryManagement {
         boolean loggedIn = false;
         Employee currentEmployee = null;
         int test = 0;
+        
         while (!loggedIn) {
-        String userName = null;
-        String password = null;
-        System.out.print("Please enter secondary username: ");
-        userName = scnr.next();
-        System.out.print("Please enter secondary password: ");
-        password = scnr.next();
-        ArrayList<Employee> Employees = EmployeeCreate();
-        for (int i = 0; i < Employees.size(); i++) {
-            if (userName.equals(Employees.get(i).getUserName())) {
-                if (password.equals(Employees.get(i).setPassword())) {
-                    loggedIn = true;
-                    System.out.println("Logged in succesfully");
-                    currentEmployee = Employees.get(i);
-                    test = 1;
-                }
-                else {
-                    System.out.println("Invalid username or password, try again");
+            String userName = null;
+            String password = null;
+            System.out.print("Please enter secondary username: ");
+            userName = scnr.next();
+            System.out.print("Please enter secondary password: ");
+            password = scnr.next();
+            ArrayList<Employee> Employees = EmployeeCreate();
+            for (int i = 0; i < Employees.size(); i++) {
+                if (userName.equals(Employees.get(i).getUserName())) {
+                    if (password.equals(Employees.get(i).getPassword())) {
+                        loggedIn = true;
+                        System.out.println("Logged in succesfully");
+                        currentEmployee = Employees.get(i);
+                        test = 1;
+                    }
+                    else {
+                        System.out.println("Invalid username or password, try again");
+                    }
                 }
             }
-        }
-        if (test == 0) {
+            
+            if (test == 0) {
                 System.out.println("Invalid username or password, try again");
-        }
+            }
         }
         secEmployee = currentEmployee;
         return currentEmployee;
@@ -89,36 +94,37 @@ public class InventoryManagement {
     public void InventoryManage(Inventory inv) {
         char input = 'y';
         while (input != 'n') {
-        System.out.println("Select an option:\na) Add inventory (Manager required)\nb) Delete inventory of controlled substance (Manager+ and Pharmacist+ required)\nc) Remove inventory (Pharmacist+ required)\nn) Exit");
-        input = scnr.next().charAt(0);
-        if (input == 'a') {
-            System.out.println("Enter the product ID");
-            int productID = scnr.nextInt();
-            System.out.println("Enter the product quantity:");
-            int productToAdd = scnr.nextInt();
-            System.out.println("Is this a controlled substance? (true or false)");
-            boolean control = Boolean.valueOf(scnr.next());
-            inv.addInventory(productID, productToAdd, control, currEmployee, 120);
-        }
-        else if (input == 'b') {
-            System.out.println("Enter the product ID");
-            int productID = scnr.nextInt();
-            System.out.println("Enter the product quantity:");
-            int productQuantityToDelete = scnr.nextInt();
-            inv.deleteInventoryControlled(productID, productQuantityToDelete, currEmployee, SecondaryEmployee());
-        }
-        else if (input == 'c') {
-            System.out.println("Enter the product ID");
-            int productID = scnr.nextInt();
-            System.out.println("Enter the product quantity:");
-            int productQuantityToDelete = scnr.nextInt();
-            inv.deleteInventory(productID, productQuantityToDelete, currEmployee);
-        }
-        else if (input == 'n') {
-        }
-        else {
-            System.out.println("Invalid input, try again");
-        }
+            System.out.println("Select an option:\na) Add inventory (Manager required)\nb) Delete inventory of controlled substance (Manager+ and Pharmacist+ required)\nc) Remove inventory (Pharmacist+ required)\nn) Exit");
+            input = scnr.next().charAt(0);
+            
+            if (input == 'a') {
+                System.out.println("Enter the product ID");
+                int productID = scnr.nextInt();
+                System.out.println("Enter the product quantity:");
+                int productToAdd = scnr.nextInt();
+                System.out.println("Is this a controlled substance? (true or false)");
+                boolean control = Boolean.valueOf(scnr.next());
+                inv.addInventory(productID, productToAdd, control, currEmployee, 120);
+            }
+            else if (input == 'b') {
+                System.out.println("Enter the product ID");
+                int productID = scnr.nextInt();
+                System.out.println("Enter the product quantity:");
+                int productQuantityToDelete = scnr.nextInt();
+                inv.deleteInventoryControlled(productID, productQuantityToDelete, currEmployee, SecondaryEmployee());
+            }
+            else if (input == 'c') {
+                System.out.println("Enter the product ID");
+                int productID = scnr.nextInt();
+                System.out.println("Enter the product quantity:");
+                int productQuantityToDelete = scnr.nextInt();
+                inv.deleteInventory(productID, productQuantityToDelete, currEmployee);
+            }
+            else if (input == 'n') {
+            }
+            else {
+                System.out.println("Invalid input, try again");
+            }
         }
     }
 

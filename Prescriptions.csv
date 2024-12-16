@@ -1,0 +1,6 @@
+PrescriptionID,PatientName,Medication,Dosage,Instructions
+00001,John Doe,Aspirin,100mg,Take once daily after meals
+00002,Jane Smith,Amoxicillin,500mg,Take twice daily for 7 days
+00003,Robert Brown,Ibuprofen,200mg,Take every 4-6 hours as needed for pain
+00004,Linda White,Metformin,1000mg,Take once daily with breakfast
+00005,Michael Green,Lisinopril,10mg,Take once daily
